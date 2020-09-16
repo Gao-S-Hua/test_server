@@ -20,4 +20,14 @@ function getMongoStatus() {
   return mongoStatus;
 }
 
+function check() {
+  if (mongoStatus == undefined) {
+    console.log(' ********************************');
+    console.log(' ** Mongo DB Service is closed **');
+    console.log(' ********************************');
+  }
+}
+
+setTimeout( check, 2 * 1000 );
+
 exports.getMongoStatus = getMongoStatus;
