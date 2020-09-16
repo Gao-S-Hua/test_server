@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var goods = require('./routes/goods');
 var api = require('./routes/api')
-
+var checkMongo = require('./utils/checkMongo');
 var app = express();
 
 // view engine setup
@@ -19,8 +19,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(checkMongo);
 app.use(express.static(path.join(__dirname, 'public'),{lastModified: false, etag: true}));
-
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/goods', goods);
