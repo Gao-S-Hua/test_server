@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(checkMongo);
-app.use(express.static(path.join(__dirname, 'public'),{lastModified: false, etag: true}));
+app.use(express.static(path.join(__dirname, 'dist'),{lastModified: false, etag: true}));
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/goods', goods);

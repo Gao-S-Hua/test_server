@@ -12,26 +12,28 @@ const userError = {
 
 router.post('/', function(req, res) {
   const userName = req.body.name;
-  const userPassword = req.body.password
+  const userPassword = req.body.password;
   Users.find({
     name: userName,
     password: sha256(userPassword)
   }, (err, dbres) => {
-    if(err || dbres.length === 0) {
-      res.json(userError)
-      return;
-    }
-    const userInfo = dbres[0];
     console.log(dbres);
-    const time = new Date();
-    res.json({
-      status: 0,
-      data: {
-        name: userInfo.name,
-        type: userInfo.type,
-        token: jwt.sign({id: userInfo.id, expr: time.getTime() + exprTime * 1000 * 60}, privateKey)
-      }
-    })
+    if(err || dbres.length === 0) {
+      res.json(userError);
+      console.log('user log fail')
+    } else {
+      const userInfo = dbres[0];
+      console.log(dbres);
+      const time = new Date();
+      res.json({
+        status: 0,
+        data: {
+          name: userInfo.name,
+          type: userInfo.type,
+          token: jwt.sign({id: userInfo.id, expr: time.getTime() + exprTime * 1000 * 60}, privateKey)
+        }
+      })
+    }
   })
 });
 
