@@ -4,10 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/users/');
 var goods = require('./routes/goods');
-var api = require('./routes/api')
+var api = require('./routes/api');
+var test = require('./routes/test');
 var checkMongo = require('./utils/checkMongo');
 var app = express();
 
@@ -19,12 +19,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(checkMongo);
+// app.use(checkMongo);
 app.use(express.static(path.join(__dirname, 'dist'),{lastModified: false, etag: true}));
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/goods', goods);
 app.use('/api', api);
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

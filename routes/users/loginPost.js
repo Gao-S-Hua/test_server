@@ -1,16 +1,14 @@
-var express = require('express');
-var router = express.Router();
 var sha256 = require('js-sha256');
 var jwt = require('jsonwebtoken');
-var { privateKey, exprTime } = require('../utils/auth');
-var Users = require('../models/user');
+var { privateKey, exprTime } = require('../../utils/auth');
+var Users = require('../../models/user');
 
 const userError = {
   status: -1,
   data: {}
 }
 
-router.post('/', function(req, res) {
+function loginPost(req, res) {
   const userName = req.body.name;
   const userPassword = req.body.password;
   Users.find({
@@ -35,6 +33,6 @@ router.post('/', function(req, res) {
       })
     }
   })
-});
+}
 
-module.exports = router;
+module.exports = loginPost;
