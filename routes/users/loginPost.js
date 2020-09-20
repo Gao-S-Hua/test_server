@@ -1,6 +1,6 @@
 var sha256 = require('js-sha256');
 var jwt = require('jsonwebtoken');
-var { privateKey, exprTime } = require('../../utils/auth');
+var { jwtSign } = require('../../utils/auth');
 var Users = require('../../models/user');
 
 const userError = {
@@ -22,13 +22,13 @@ function loginPost(req, res) {
     } else {
       const userInfo = dbres[0];
       console.log(dbres);
-      const time = new Date();
+      const userId = userInfo.id;
       res.json({
         status: 0,
         data: {
           name: userInfo.name,
           type: userInfo.type,
-          token: jwt.sign({id: userInfo.id, expr: time.getTime() + exprTime * 1000 * 60}, privateKey)
+          token: jwtSign(userId)
         }
       })
     }
