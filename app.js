@@ -22,10 +22,19 @@ app.use(cookieParser());
 // app.use(checkMongo);
 app.use(express.static(path.join(__dirname, 'dist'),{lastModified: false, etag: true}));
 // app.use('/', indexRouter);
+
 app.use('/users', usersRouter);
 app.use('/goods', goods);
 app.use('/api', api);
 app.use('/test', test);
+// app.use('/media', express.static(path.join(__dirname, 'media')))
+app.use('/media', express.static('/Users/gao/Downloads'));
+
+
+//catch all
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, './dist/index.html'));
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

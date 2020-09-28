@@ -4,7 +4,7 @@ var wss;
 const TIME_GAP = 1000;
 
 function wsInit(server) {
-  wss = new WebSocket.Server({ server });
+  wss = new WebSocket.Server({ server, path: '/record' });
   wss.on('connection', (ws) => {
     let timer = null;
     //connection is up, let's add a simple simple event
