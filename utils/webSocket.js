@@ -12,13 +12,18 @@ function wsInit(server) {
       console.log(message);
       switch(message) {
         case 'close' : {
-          clearInterval(timer);
+          if(timer) clearInterval(timer);
           ws.terminate();
           break;
         }
         case 'temperature' : {
           if(timer) clearInterval(timer);
           timer = setInterval( () => ws.send(getTemperature()), TIME_GAP);
+          break;
+        }
+        case 'current' : {
+          if(timer) clearInterval(timer);
+          timer = setInterval( () => ws.send(getCurrent()), TIME_GAP);
           break;
         }
         default: break;
@@ -30,8 +35,15 @@ function wsInit(server) {
 function getTemperature() {
   const base = 25;
   const newTemp = (base + 40 * Math.random()).toFixed(2);
-  console.log(newTemp)
+  console.log('Temperature: ' + newTemp.toString());
   return newTemp;
+}
+
+function getCurrent() {
+  const base = 1.2;
+  const newCurrent = (base + 0.2 * Math.random()).toFixed(2);
+  console.log('Current: ' + newCurrent.toString());
+  return newCurrent;
 }
 
 function wsClose() {
