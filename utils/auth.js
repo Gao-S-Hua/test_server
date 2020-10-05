@@ -9,3 +9,4 @@ function jwtSign(id) {
 }
 
 exports.jwtSign = jwtSign;
+exports.privateKey = privateKey;

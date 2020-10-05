@@ -4,13 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var usersRouter = require('./routes/users/');
-var goods = require('./routes/goods');
-var api = require('./routes/api');
-var test = require('./routes/test');
+var api = require('./api');
 var checkMongo = require('./utils/checkMongo');
+var getUser = require('./utils/getUser');
 var app = express();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -20,26 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(checkMongo);
+
 app.use(express.static(path.join(__dirname, 'dist'),{lastModified: false, etag: true}));
-// app.use('/', indexRouter);
-
-app.use('/users', usersRouter);
-app.use('/goods', goods);
+app.use('/api', getUser);
 app.use('/api', api);
-app.use('/test', test);
-// app.use('/media', express.static(path.join(__dirname, 'media')))
 app.use('/media', express.static('/Users/gao/Downloads'));
-
-
-//catch all
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, './dist/index.html'));
-})
-
+app.get('/*', (req, res) => { res.sendFile(path.join(__dirname, './dist/index.html')); })
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+app.use(function(req, res, next) { next(createError(404)); });
 
 // error handler
 app.use(function(err, req, res, next) {
