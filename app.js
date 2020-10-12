@@ -19,7 +19,7 @@ app.use(cookieParser());
 // app.use(checkMongo);
 
 app.use(express.static(path.join(__dirname, 'dist'),{lastModified: false, etag: true}));
-app.use('/api', getUser);
+// app.use('/api', getUser);
 app.use('/api', api);
 app.use('/media', express.static('/Users/gao/Downloads'));
 app.get('/*', (req, res) => { res.sendFile(path.join(__dirname, './dist/index.html')); })

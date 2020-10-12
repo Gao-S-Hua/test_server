@@ -1,5 +1,5 @@
 const caseModel = require('../../models/case');
-const userModel = require('../../models/user');
+const idToUserName = require('../common/idToUserName');
 
 function myCase(req, res) {
   caseModel.find({ownerId: req.userId}).then(
@@ -15,14 +15,6 @@ function myCase(req, res) {
   ).catch(
     () => res.json([])
   )
-}
-
-const mem = new Map();
-async function idToUserName(id) {
-  if (mem.has(id)) return mem.get(id);
-  const user = await userModel.findOne({id});
-  mem.set(id, user.name);
-  return user.name;
 }
 
 module.exports = myCase;

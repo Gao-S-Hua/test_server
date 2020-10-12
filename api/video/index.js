@@ -6,7 +6,6 @@ router.get('/list', (req, res) => {
   var list = fs.readdirSync('/Users/gao/Downloads');
   const videoReg = new RegExp('(.mp4)$');
   list = list.filter( name => videoReg.test(name)).sort();
-  console.log(list);
   res.json(list);
 })
 

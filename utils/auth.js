@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const privateKey = 'secret key';
-const exprTime = 5;
+const privateKey = 'secret key: e5b5410415bde908bd4dee15d';
+const exprTime = 120;
 
 function jwtSign(id) {
   const time = new Date();
